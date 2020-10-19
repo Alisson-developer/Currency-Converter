@@ -1,6 +1,5 @@
 import { Router } from 'express'
 
-
 import UserController from './controllers/UserController'
 import ConverterController from './controllers/ConverterController'
 

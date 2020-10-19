@@ -1,50 +1,26 @@
 # Conversor de moedas
 
-Você deverá implementar uma API Rest que seja capaz de realizar a conversão entre duas moedas
-utilizando taxas de conversões atualizadas de um serviço externo.
+# ExplicaÃ§Ãµes
 
-Para realização da conversão é necessário o ID do usuário que deseja realizar a conversão.
+* Meu objetivo inicial era fazer um conversor simples de moeda que convertesse entre pelo menos 4 moedas.
+No entanto eu quis ir alÃ©m e desenvolvi um conversor com a funcionalidade de converter qualquer moeda,
+obtendo as taxas de cada moeda na api 'https://api.exchangeratesapi.io/latest?base=USD'.
 
-A API deverá registrar cada transação de conversão com todas as informações relacionadas e também
-disponibilizar um endpoint para consulta das transações realizadas por um usuário.
+* No metodo create presente no arquivo controllers/ConvertController.ts eu criei uma funÃ§Ã£o chamada
+multiplyValuesCurrency(origin, rate) que recebe como primeiro parÃ¢metro o valor de origem a ser convertido e
+como segundo parÃ¢metro o valor da taxa da moeda destino, tendo como base de taxas a moeda de origem e por fim
+retornando a multiplicaÃ§Ã£o dos valores. 
+Em seguida atribuÃ­ a constante conversion o link da api usando BackTick(ou template string como tambÃ©m Ã© 
+conhecido) para que o valor da base de taxa seja o mesmo do valor de origem e por fim extraio a data
+referente as taxas atribuindo-a a constante date.
 
-O projeto poderá ser feito na linguagem de programação de sua preferência.
+* A constante targetValue que recebe a chamada da funÃ§Ã£o multiplyValuesCurrency(source_currency, rate[target_currency]),
+logo apÃ³s faz-se a inserÃ§Ã£o dos valores no banco de dados.
 
-1. Deve ser possível realizar a conversão entre 4 moedas no mínimo (BRL, USD, EUR, JPY);
-1. As taxas de conversão devem ser obtidas de [https://api.exchangeratesapi.io/latest?base=USD];
-1. As transações de conversão devem ser persistidas no banco de dados (embedded) contendo:
-    * ID do usuário;
-    * Moeda origem;
-    * Valor origem;
-    * Moeda destino;
-    * Taxa de conversão utilizada;
-    * Data/Hora UTC;
-1. Uma transação com sucesso deve retornar:
-    * ID da transação
-    * ID do usuário;
-    * Moeda origem;
-    * Valor origem;
-    * Moeda destino;
-    * Valor destino;
-    * Taxa de conversão utilizada;
-    * Data/Hora UTC;
-1. Uma transação com falha conhecida deve retornar um erro HTTP 400 com a descrição da falha;
-1. Deverá existir um endpoint para listagem de todas as transações realizadas por usuário;
-1. Deve haver uma cobertura satisfatória de testes;
-1. Deve-se adicionar a esse arquivo explicações sobre como rodar a aplicação, e uma apresentação sobre o
-projeto: propósito, features, motivação das principais escolhas de tecnologias, e separação das camadas;
-1. Todo o código deve ser em inglês;
-1. Disponibilizar o código apenas nesse repositório, sem nenhuma cópia pública, para evitar plágio;
+## A Stack utilizada
 
-## Itens desejáveis
-* Logs
-* Tratamento de exceções
-* Documentação
-* Coesão de commits
-* Mensagens de commits claras
-* Configuração de lint
-* Testes unitários
-* Testes de integração
-* Documentação dos endpoints
-* Estar rodando e disponível (Ex: Heroku, ou similar)
-* CI/CD
+* NodeJS com Typescript; 
+* O banco de dados utilizado foi o SQLite - Uso migrations para minhas tabelas no DB;
+* O QueryBuilder Knex.js
+* A Lib de acesso a API usada foi o Axios, pois acho uma ferramenta muito simples de usar;
+* E o Micro Framework Express para tratamento de rotas;

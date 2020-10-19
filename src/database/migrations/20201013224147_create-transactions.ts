@@ -7,6 +7,8 @@ export async function up(knex: Knex): Promise<void> {
         column.string('source_currency').notNullable()
         column.decimal('source_value', null).notNullable()
         column.string('target_currency').notNullable()
+        column.decimal('target_value').notNullable()
+        column.string('conversion_date').notNullable()
         column.decimal('conversion_rate', null).notNullable()
         column.timestamp('created_at', { precision: 3 }).defaultTo(knex.fn.now())
 
